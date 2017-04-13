@@ -74,7 +74,7 @@ let bool = false;
 
 window.addEventListener('keypress', (e) => {
 
-	function sequencer() {
+	function sequencer(osc) {
 		setTimeout(() => {
 			osc.frequency.value += 100;
 		}, 500);
@@ -95,6 +95,7 @@ window.addEventListener('keypress', (e) => {
 		if (e.which === 97) {
 			arrOfOsc[0].start();
 			one.style.backgroundColor = getRandomColor();
+			sequencer.call(null, arrOfOsc[0]);
 		}
 
 			if (e.which === 113) {
@@ -111,6 +112,7 @@ window.addEventListener('keypress', (e) => {
 		if (e.which === 115) {
 			arrOfOsc[1].start();
 			two.style.backgroundColor = getRandomColor();
+			sequencer.call(null, arrOfOsc[1]);
 		}
 
 			if (e.which === 119) {
