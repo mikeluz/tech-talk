@@ -1,0 +1,39 @@
+#app {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+#main {
+	position: relative;
+	margin: 10px auto;
+	height: 1000px;
+	width: 1000px;
+}
+
+.box {
+	border: solid 1px black;
+	height: 300px;
+	width: 300px;
+	margin: 0 auto;
+}
+
+.row {
+	display: inline;
+}
+
+#one {
+	background-color: red;
+}
+
+#two {
+	background-color: black;
+}
+
+#three {
+	background-color: blue;
+}
+
+#four {
+	background-color: yellow;
+}
