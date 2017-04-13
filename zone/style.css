@@ -2,6 +2,10 @@
 	position: relative;
 	height: 100%;
 	width: 100%;
+	/*background-image: url('insideabox.jpg');*/
+	background-repeat: no-repeat;
+	background-position: center;
+
 }
 
 #main {
@@ -9,12 +13,13 @@
 	margin: 10px auto;
 	height: 1000px;
 	width: 1000px;
+	padding-top: 240px;
 }
 
 .box {
 	border: solid 1px black;
-	height: 300px;
-	width: 300px;
+	height: 200px;
+	width: 200px;
 	margin: 0 auto;
 }
 
@@ -36,4 +41,20 @@
 
 #four {
 	background-color: yellow;
+}
+
+#five {
+	background-color: green;
+}
+
+#six {
+	background-color: pink;
+}
+
+#seven {
+	background-color: brown;
+}
+
+#eight {
+	background-color: purple;
 }
