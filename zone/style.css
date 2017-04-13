@@ -1,3 +1,7 @@
+html {
+	background-color: black;
+}
+
 #app {
 	position: relative;
 	height: 100%;
@@ -5,15 +9,17 @@
 	/*background-image: url('insideabox.jpg');*/
 	background-repeat: no-repeat;
 	background-position: center;
-
+	text-align: center;
+	font-family: 'Press Start 2P', cursive;
+	color: black;
 }
 
 #main {
 	position: relative;
 	margin: 10px auto;
-	height: 1000px;
+	height: 950px;
 	width: 1000px;
-	padding-top: 240px;
+	padding-top: 40px;
 }
 
 .box {
@@ -28,33 +34,33 @@
 }
 
 #one {
-	background-color: red;
+	background-color: white;
 }
 
 #two {
-	background-color: black;
+	background-color: white;
 }
 
 #three {
-	background-color: blue;
+	background-color: white;
 }
 
 #four {
-	background-color: yellow;
+	background-color: white;
 }
 
 #five {
-	background-color: green;
+	background-color: white;
 }
 
 #six {
-	background-color: pink;
+	background-color: white;
 }
 
 #seven {
-	background-color: brown;
+	background-color: white;
 }
 
 #eight {
-	background-color: purple;
+	background-color: white;
 }

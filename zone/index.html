@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
         <Link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
         <!--<link rel="stylesheet" href="css/main.css"> -->
     </head>
     <body>
@@ -23,6 +24,8 @@
     <div id='app'>
         <div id='main'>
             <!-- automate populating rows -->
+            <h1>PLAY A RIFF</h1>
+            <br />
             <div class='row'>
                 <div class='col-sm-3'>
                     <div class='box' id='one'>
@@ -59,6 +62,15 @@
                     <div class='box' id='eight'>
                     </div>
                 </div>
+            </div>
+            <div id="volume">
+		    <h2>Volume</h2>
+		    <input type="range" min="0.0" max="1.0" step="0.01"
+		        value="0.5" list="volumes" name="volume">
+		    <datalist id="volumes">
+		      <option value="0.0" label="Mute">
+		      <option value="1.0" label="100%">
+		    </datalist>
             </div>
         </div>
     </div>

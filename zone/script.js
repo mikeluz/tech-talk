@@ -33,6 +33,13 @@ function makeDistortionCurve(amount) {
 // distortion.curve = makeDistortionCurve(0);
 // distortion.oversample = '1x';
 
+// volume control
+function changeVolume(event) {
+  gainNode.gain.value = volumeControl.value
+}
+let volumeControl = document.querySelector("input[name='volume']");
+volumeControl.addEventListener("change", changeVolume, false);
+
 // squares
 let one = document.getElementById("one");
 let two = document.getElementById("two");
@@ -46,8 +53,8 @@ let startingFreqValue = 550;
 
 for (let i = 0; i < 8; i++) {
 	let osc = audioCtx.createOscillator();
-	// osc.type = arrayOfSynthTypes[Math.floor((Math.random() * 10) / 8)];
-	osc.type = "sine";
+	osc.type = arrayOfSynthTypes[Math.floor((Math.random() * 10) / 8)];
+	// osc.type = "square";
 	osc.frequency.value = startingFreqValue;
 	startingFreqValue = Math.floor(Math.random() * 1000);
 	arrOfOsc.push(osc);
@@ -61,11 +68,26 @@ arrOfOsc.forEach(osc => {
 })
 
 // global volume
-gainNode.gain.value = 0.04;
+gainNode.gain.value = 0.5;
 let globalPitchInterval = 50;
 let bool = false;
 
 window.addEventListener('keypress', (e) => {
+
+	function sequencer() {
+		setTimeout(() => {
+			osc.frequency.value += 100;
+		}, 500);
+		setTimeout(() => {
+			osc.frequency.value += 100;
+		}, 1000);
+		setTimeout(() => {
+			osc.frequency.value += 100;
+		}, 1500);
+		setTimeout(() => {
+			osc.frequency.value += 100;
+		}, 2000);
+	}
 
 		console.log(e.which);
 
@@ -88,7 +110,7 @@ window.addEventListener('keypress', (e) => {
 		// 's' on keyboard
 		if (e.which === 115) {
 			arrOfOsc[1].start();
-			two.style.backgroundColor = getRandomColor();;
+			two.style.backgroundColor = getRandomColor();
 		}
 
 			if (e.which === 119) {
@@ -104,7 +126,7 @@ window.addEventListener('keypress', (e) => {
 		// 'd' on keyboard
 		if (e.which === 100) {
 			arrOfOsc[2].start();
-			three.style.backgroundColor = getRandomColor();;
+			three.style.backgroundColor = getRandomColor();
 		}
 
 			if (e.which === 101) {
@@ -120,7 +142,7 @@ window.addEventListener('keypress', (e) => {
 		// 'f' on keyboard
 		if (e.which === 102) {
 			arrOfOsc[3].start();
-			four.style.backgroundColor = getRandomColor();;
+			four.style.backgroundColor = getRandomColor();
 		}
 
 			if (e.which === 114) {
@@ -136,6 +158,7 @@ window.addEventListener('keypress', (e) => {
 		// 'j' on keyboard
 		if (e.which === 106) {
 			arrOfOsc[4].start();
+			five.style.backgroundColor = getRandomColor();
 		}
 
 			if (e.which === 117) {
@@ -151,6 +174,7 @@ window.addEventListener('keypress', (e) => {
 		// 'k' on keyboard
 		if (e.which === 107) {
 			arrOfOsc[5].start();
+			six.style.backgroundColor = getRandomColor();
 		}
 
 			if (e.which === 105) {
@@ -166,6 +190,7 @@ window.addEventListener('keypress', (e) => {
 		// 'l' on keyboard
 		if (e.which === 108) {
 			arrOfOsc[6].start();
+			seven.style.backgroundColor = getRandomColor();
 		}
 
 			if (e.which === 111) {
@@ -181,6 +206,7 @@ window.addEventListener('keypress', (e) => {
 		// ';' on keyboard
 		if (e.which === 59) {
 			arrOfOsc[7].start();
+			eight.style.backgroundColor = getRandomColor();
 		}
 
 			if (e.which === 112) {
@@ -205,14 +231,14 @@ window.addEventListener('keypress', (e) => {
 		if (e.which === 91) {
 			arrOfOsc.forEach(osc => {
 				osc.frequency.value -= globalPitchInterval;
-			})
+			});
 		}
 
 		// right bracket to increase pitch
 		if (e.which === 93) {
 			arrOfOsc.forEach(osc => {
 				osc.frequency.value += globalPitchInterval;
-			})
+			});
 		}
 
 		// space bar to stop
@@ -220,82 +246,8 @@ window.addEventListener('keypress', (e) => {
 			e.preventDefault();
 			arrOfOsc.forEach(osc => {
 				if (osc.start) osc.stop();
-			})
+			});
 		}
 
 
 });
-
-
-
-
-
-
-
-
-// create Oscillator nodes (manually)
-// var oscillatorOne = audioCtx.createOscillator();
-// oscillatorOne.type = 'sine';
-// oscillatorOne.frequency.value = 950; // value in hertz
-// arrOfOsc[0].connect(distortion);
-// distortion.connect(gainNode);
-// gainNode.connect(audioCtx.destination);
-
-// // var oscillatorTwo = audioCtx.createOscillator();
-// // oscillatorTwo.type = 'square';
-// // oscillatorTwo.frequency.value = 750; // value in hertz
-// arrOfOsc[1].connect(distortion);
-// distortion.connect(gainNode);
-// gainNode.connect(audioCtx.destination);
-
-// // var oscillatorThree = audioCtx.createOscillator();
-// // oscillatorThree.type = 'triangle';
-// // oscillatorThree.frequency.value = 550; // value in hertz
-// arrOfOsc[2].connect(distortion);
-// distortion.connect(gainNode);
-// gainNode.connect(audioCtx.destination);
-
-
-// // var oscillatorFour = audioCtx.createOscillator();
-// // oscillatorFour.type = 'sawtooth';
-// // oscillatorFour.frequency.value = 1050; // value in hertz
-// arrOfOsc[3].connect(distortion);
-// distortion.connect(gainNode);
-// gainNode.connect(audioCtx.destination);
-// //
-
-// arrOfOsc[4].connect(distortion);
-// distortion.connect(gainNode);
-// gainNode.connect(audioCtx.destination);
-
-// arrOfOsc[5].connect(distortion);
-// distortion.connect(gainNode);
-// gainNode.connect(audioCtx.destination);
-
-// arrOfOsc[6].connect(distortion);
-// distortion.connect(gainNode);
-// gainNode.connect(audioCtx.destination);
-
-// arrOfOsc[7].connect(distortion);
-// distortion.connect(gainNode);
-// gainNode.connect(audioCtx.destination);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
