@@ -27,6 +27,12 @@ html {
 	height: 200px;
 	width: 200px;
 	margin: 0 auto;
+	text-align: center;
+}
+
+p {
+	padding-top: 82px;
+	text-align: center;
 }
 
 .row {
