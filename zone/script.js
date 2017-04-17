@@ -7,8 +7,12 @@ function getRandomColor() {
     return color;
 }
 
-// create web audio api context
+
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+console.log('window', window);
+console.log('window.AudioContext', window.AudioContext);
+console.log("audioCtx", audioCtx);
 
 //set up the different audio nodes we will use for the app
 var distortion = audioCtx.createWaveShaper();
@@ -21,7 +25,6 @@ var delay = new Pizzicato.Effects.Delay({
     mix: 0.5
 });
 
-console.log(delay);
 // sound.play();
 
 function makeDistortionCurve(amount) {
@@ -125,6 +128,79 @@ function createNoteTable() {
   return noteFreq;
 }
 
+function createLinearNoteTable() {
+  let noteFreq = [];
+  for (let i=0; i< 6; i++) {
+    noteFreq[i] = [];
+  }
+  // noteFreq["C"] = 65.406391325149658; // C
+  // noteFreq["C#"] = 69.295657744218024; // C# ...
+  // noteFreq["D"] = 73.416191979351890;
+  // noteFreq["D#"] = 77.781745930520227;
+  // noteFreq["E"] = 82.406889228217482;
+  // noteFreq["F"] = 87.307057858250971;
+  // noteFreq["F#"] = 92.498605677908599;
+  // noteFreq["G"] = 97.998858995437323;
+  // noteFreq["G#"] = 103.826174394986284;
+  // noteFreq["A"] = 110.000000000000000;
+  // noteFreq["A#"] = 116.540940379522479;
+  // noteFreq["B"] = 123.470825314031027;  // B
+
+  // noteFreq["C"] = 130.812782650299317;
+  // noteFreq["C#"] = 138.591315488436048;
+  // noteFreq["D"] = 146.832383958703780;
+  // noteFreq["D#"] = 155.563491861040455;
+  // noteFreq["E"] = 164.813778456434964;
+  // noteFreq["F"] = 174.614115716501942;
+  // noteFreq["F#"] = 184.997211355817199;
+  // noteFreq["G"] = 195.997717990874647;
+  // noteFreq["G#"] = 207.652348789972569;
+  // noteFreq["A"] = 220.000000000000000;
+  // noteFreq["A#"] = 233.081880759044958;
+  // noteFreq["B"] = 246.941650628062055;
+
+  noteFreq[0] = 261.625565300598634;
+  noteFreq[1] = 277.182630976872096;
+  noteFreq[2] = 293.664767917407560;
+  noteFreq[3] = 311.126983722080910;
+  noteFreq[4] = 329.627556912869929;
+  noteFreq[5] = 349.228231433003884;
+  noteFreq[6] = 369.994422711634398;
+  noteFreq[7] = 391.995435981749294;
+  noteFreq[8] = 415.304697579945138;
+  noteFreq[9] = 440.000000000000000;
+  noteFreq[10] = 466.163761518089916;
+  noteFreq[11] = 493.883301256124111;
+
+  // noteFreq["C"] = 523.251130601197269;
+  // noteFreq["C#"] = 554.365261953744192;
+  // noteFreq["D"] = 587.329535834815120;
+  // noteFreq["D#"] = 622.253967444161821;
+  // noteFreq["E"] = 659.255113825739859;
+  // noteFreq["F"] = 698.456462866007768;
+  // noteFreq["F#"] = 739.988845423268797;
+  // noteFreq["G"] = 783.990871963498588;
+  // noteFreq["G#"] = 830.609395159890277;
+  // noteFreq["A"] = 880.000000000000000;
+  // noteFreq["A#"] = 932.327523036179832;
+  // noteFreq["B"] = 987.766602512248223;
+
+  // noteFreq["C"] = 1046.502261202394538;
+  // noteFreq["C#"] = 1108.730523907488384;
+  // noteFreq["D"] = 1174.659071669630241;
+  // noteFreq["D#"] = 1244.507934888323642;
+  // noteFreq["E"] = 1318.510227651479718;
+  // noteFreq["F"] = 1396.912925732015537;
+  // noteFreq["F#"] = 1479.977690846537595;
+  // noteFreq["G"] = 1567.981743926997176;
+  // noteFreq["G#"] = 1661.218790319780554;
+  // noteFreq["A"] = 1760.000000000000000;
+  // noteFreq["A#"] = 1864.655046072359665;
+  // noteFreq["B"] = 1975.533205024496447;
+  // noteFreq["C"] = 2093.004522404789077;
+  return noteFreq;
+}
+
 // grab squares
 let one = document.getElementById("one");
 let two = document.getElementById("two");
@@ -134,14 +210,14 @@ let four = document.getElementById("four");
 // create oscillators
 const arrayOfSynthTypes = ['sine', 'square', 'triangle', 'sawtooth', 'sine', 'square', 'triangle', 'sawtooth'];
 const arrOfOsc = [];
-let startingFreqValue = 440;
+let startingFreqValue = 261.625565300598634;
 
 for (let i = 0; i < 8; i++) {
 	let osc = audioCtx.createOscillator();
 	osc.type = arrayOfSynthTypes[Math.floor((Math.random() * 10) / 8)];
 	// osc.type = "square";
-	osc.frequency.value = startingFreqValue;
-	startingFreqValue = Math.floor(Math.random() * 1000);
+	osc.frequency.value = Math.floor(Math.random() * 1000);
+	// startingFreqValue = ;
 	arrOfOsc.push(osc);
 }
 
@@ -153,7 +229,7 @@ arrOfOsc.forEach(osc => {
 	gainNode.connect(audioCtx.destination);
 });
 
-console.log(arrOfOsc);
+console.log("arrOfOsc", arrOfOsc);
 // arrOfOsc.addEffect(delay);
 
 // global volume and pitch values
@@ -164,6 +240,7 @@ let globalPitchInterval = 50;
 window.addEventListener('keypress', (e) => {
 
 	const notes = createNoteTable();
+	const linearNotes = createLinearNoteTable();
 
 	function sequencer(osc, notes) {
 		setTimeout(() => {
@@ -200,8 +277,32 @@ window.addEventListener('keypress', (e) => {
 			osc.frequency.value = notes[3]['E']; // F
 		}, 4000);
 		setTimeout(() => {
-			osc.frequency.value = notes[2]['A']; // F
+			osc.frequency.value = notes[2]['G#']; // F
 		}, 4400);
+	}
+
+	function chroma(osc, notes) {
+		// setTimeout(function () {		
+			var index = 0;
+			setTimeout(() => {
+				osc.frequency.value = notes[index+5]; // E
+			}, 0);
+			setTimeout(() => {
+				osc.frequency.value = notes[index+4]; // E
+			}, 400);
+			setTimeout(() => {
+				osc.frequency.value = notes[index]; // E
+			}, 800);
+			setTimeout(() => {
+				osc.frequency.value = notes[index+5]; // E
+			}, 1200);
+			setTimeout(() => {
+				osc.frequency.value = notes[index+7]; // E
+			}, 1600);
+			setTimeout(() => {
+				osc.frequency.value = notes[index+7]; // E
+			}, 1600);
+		// }, 1000)
 	}
 
 		console.log(e.which);
@@ -349,6 +450,7 @@ window.addEventListener('keypress', (e) => {
 			});
 		}
 
+		var intervalCounter = 0;
 		// right bracket to increase pitch
 		if (e.which === 93) {
 			arrOfOsc.forEach(osc => {
@@ -369,6 +471,9 @@ window.addEventListener('keypress', (e) => {
 				arrOfOsc.forEach((osc) => {
 					sequencer.call(null, osc, notes);
 				});
+				// arrOfOsc.forEach((osc) => {
+				// 	chroma.call(null, osc, linearNotes);
+				// });
 			// }, 500);
 		}
 
