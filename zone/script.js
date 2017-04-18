@@ -7,7 +7,6 @@ function getRandomColor() {
     return color;
 }
 
-
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 console.log('window', window);
@@ -133,71 +132,72 @@ function createLinearNoteTable() {
   for (let i=0; i< 6; i++) {
     noteFreq[i] = [];
   }
-  // noteFreq["C"] = 65.406391325149658; // C
-  // noteFreq["C#"] = 69.295657744218024; // C# ...
-  // noteFreq["D"] = 73.416191979351890;
-  // noteFreq["D#"] = 77.781745930520227;
-  // noteFreq["E"] = 82.406889228217482;
-  // noteFreq["F"] = 87.307057858250971;
-  // noteFreq["F#"] = 92.498605677908599;
-  // noteFreq["G"] = 97.998858995437323;
-  // noteFreq["G#"] = 103.826174394986284;
-  // noteFreq["A"] = 110.000000000000000;
-  // noteFreq["A#"] = 116.540940379522479;
-  // noteFreq["B"] = 123.470825314031027;  // B
+  noteFreq[0] = 65.406391325149658; // C
+  noteFreq[1] = 69.295657744218024; // C# ...
+  noteFreq[2] = 73.416191979351890;
+  noteFreq[3] = 77.781745930520227;
+  noteFreq[4] = 82.406889228217482;
+  noteFreq[5] = 87.307057858250971;
+  noteFreq[6] = 92.498605677908599;
+  noteFreq[7] = 97.998858995437323;
+  noteFreq[8] = 103.826174394986284;
+  noteFreq[9] = 110.000000000000000;
+  noteFreq[10] = 116.540940379522479;
+  noteFreq[11] = 123.470825314031027;  // B
 
-  // noteFreq["C"] = 130.812782650299317;
-  // noteFreq["C#"] = 138.591315488436048;
-  // noteFreq["D"] = 146.832383958703780;
-  // noteFreq["D#"] = 155.563491861040455;
-  // noteFreq["E"] = 164.813778456434964;
-  // noteFreq["F"] = 174.614115716501942;
-  // noteFreq["F#"] = 184.997211355817199;
-  // noteFreq["G"] = 195.997717990874647;
-  // noteFreq["G#"] = 207.652348789972569;
-  // noteFreq["A"] = 220.000000000000000;
-  // noteFreq["A#"] = 233.081880759044958;
-  // noteFreq["B"] = 246.941650628062055;
+  noteFreq[12] = 130.812782650299317;
+  noteFreq[13] = 138.591315488436048;
+  noteFreq[14] = 146.832383958703780;
+  noteFreq[15] = 155.563491861040455;
+  noteFreq[16] = 164.813778456434964;
+  noteFreq[17] = 174.614115716501942;
+  noteFreq[18] = 184.997211355817199;
+  noteFreq[19] = 195.997717990874647;
+  noteFreq[20] = 207.652348789972569;
+  noteFreq[21] = 220.000000000000000;
+  noteFreq[22] = 233.081880759044958;
+  noteFreq[23] = 246.941650628062055;
 
-  noteFreq[0] = 261.625565300598634;
-  noteFreq[1] = 277.182630976872096;
-  noteFreq[2] = 293.664767917407560;
-  noteFreq[3] = 311.126983722080910;
-  noteFreq[4] = 329.627556912869929;
-  noteFreq[5] = 349.228231433003884;
-  noteFreq[6] = 369.994422711634398;
-  noteFreq[7] = 391.995435981749294;
-  noteFreq[8] = 415.304697579945138;
-  noteFreq[9] = 440.000000000000000;
-  noteFreq[10] = 466.163761518089916;
-  noteFreq[11] = 493.883301256124111;
+  noteFreq[24] = 261.625565300598634;
+  noteFreq[25] = 277.182630976872096;
+  noteFreq[26] = 293.664767917407560;
+  noteFreq[27] = 311.126983722080910;
+  noteFreq[28] = 329.627556912869929;
+  noteFreq[29] = 349.228231433003884;
+  noteFreq[30] = 369.994422711634398;
+  noteFreq[31] = 391.995435981749294;
+  noteFreq[32] = 415.304697579945138;
+  noteFreq[33] = 440.000000000000000;
+  noteFreq[34] = 466.163761518089916;
+  noteFreq[35] = 493.883301256124111;
 
-  // noteFreq["C"] = 523.251130601197269;
-  // noteFreq["C#"] = 554.365261953744192;
-  // noteFreq["D"] = 587.329535834815120;
-  // noteFreq["D#"] = 622.253967444161821;
-  // noteFreq["E"] = 659.255113825739859;
-  // noteFreq["F"] = 698.456462866007768;
-  // noteFreq["F#"] = 739.988845423268797;
-  // noteFreq["G"] = 783.990871963498588;
-  // noteFreq["G#"] = 830.609395159890277;
-  // noteFreq["A"] = 880.000000000000000;
-  // noteFreq["A#"] = 932.327523036179832;
-  // noteFreq["B"] = 987.766602512248223;
 
-  // noteFreq["C"] = 1046.502261202394538;
-  // noteFreq["C#"] = 1108.730523907488384;
-  // noteFreq["D"] = 1174.659071669630241;
-  // noteFreq["D#"] = 1244.507934888323642;
-  // noteFreq["E"] = 1318.510227651479718;
-  // noteFreq["F"] = 1396.912925732015537;
-  // noteFreq["F#"] = 1479.977690846537595;
-  // noteFreq["G"] = 1567.981743926997176;
-  // noteFreq["G#"] = 1661.218790319780554;
-  // noteFreq["A"] = 1760.000000000000000;
-  // noteFreq["A#"] = 1864.655046072359665;
-  // noteFreq["B"] = 1975.533205024496447;
-  // noteFreq["C"] = 2093.004522404789077;
+  noteFreq[36] = 523.251130601197269;
+  noteFreq[37] = 554.365261953744192;
+  noteFreq[38] = 587.329535834815120;
+  noteFreq[39] = 622.253967444161821;
+  noteFreq[40] = 659.255113825739859;
+  noteFreq[41] = 698.456462866007768;
+  noteFreq[42] = 739.988845423268797;
+  noteFreq[43] = 783.990871963498588;
+  noteFreq[44] = 830.609395159890277;
+  noteFreq[45] = 880.000000000000000;
+  noteFreq[46] = 932.327523036179832;
+  noteFreq[47] = 987.766602512248223;
+
+  noteFreq[48] = 1046.502261202394538;
+  noteFreq[49] = 1108.730523907488384;
+  noteFreq[50] = 1174.659071669630241;
+  noteFreq[51] = 1244.507934888323642;
+  noteFreq[52] = 1318.510227651479718;
+  noteFreq[53] = 1396.912925732015537;
+  noteFreq[54] = 1479.977690846537595;
+  noteFreq[55] = 1567.981743926997176;
+  noteFreq[56] = 1661.218790319780554;
+  noteFreq[57] = 1760.000000000000000;
+  noteFreq[58] = 1864.655046072359665;
+  noteFreq[59] = 1975.533205024496447;
+  noteFreq[60] = 2093.004522404789077;
   return noteFreq;
 }
 
@@ -281,28 +281,164 @@ window.addEventListener('keypress', (e) => {
 		}, 4400);
 	}
 
-	function chroma(osc, notes) {
-		// setTimeout(function () {		
-			var index = 0;
+	function sequencerA(osc, notes) {
+		var go = setInterval(() => {
 			setTimeout(() => {
-				osc.frequency.value = notes[index+5]; // E
+				osc.frequency.value = notes[3]['E']; // E
 			}, 0);
 			setTimeout(() => {
-				osc.frequency.value = notes[index+4]; // E
+				osc.frequency.value = notes[3]['D#']; // Eflat
 			}, 400);
 			setTimeout(() => {
-				osc.frequency.value = notes[index]; // E
+				osc.frequency.value = notes[3]['E']; // E
 			}, 800);
 			setTimeout(() => {
-				osc.frequency.value = notes[index+5]; // E
+				osc.frequency.value = notes[2]['A']; // A
 			}, 1200);
 			setTimeout(() => {
-				osc.frequency.value = notes[index+7]; // E
+				osc.frequency.value = notes[3]['E']; // E
 			}, 1600);
 			setTimeout(() => {
-				osc.frequency.value = notes[index+7]; // E
+				osc.frequency.value = notes[3]['D#']; // Eflat
+			}, 2000);
+			setTimeout(() => {
+				osc.frequency.value = notes[3]['E']; // E
+			}, 2400);
+			setTimeout(() => {
+				osc.frequency.value = notes[3]['F']; // F
+			}, 2800);
+			setTimeout(() => {
+				osc.frequency.value = notes[3]['G']; // F
+			}, 3200);
+			setTimeout(() => {
+				osc.frequency.value = notes[3]['F']; // F
+			}, 3600);
+			setTimeout(() => {
+				osc.frequency.value = notes[3]['E']; // F
+			}, 4000);
+			setTimeout(() => {
+				osc.frequency.value = notes[2]['G#']; // F
+			}, 4400);
+		}, 5200)
+	}
+
+	function sequencerB(osc, notes) {
+		var go = setInterval(() => {
+			setTimeout(() => {
+				osc.frequency.value = notes[3]['B']; // E
+			}, 0);
+			setTimeout(() => {
+				osc.frequency.value = notes[3]['A']; // Eflat
+			}, 400);
+			setTimeout(() => {
+				osc.frequency.value = notes[3]['B']; // E
+			}, 800);
+			setTimeout(() => {
+				osc.frequency.value = notes[3]['E']; // A
+			}, 1200);
+			setTimeout(() => {
+				osc.frequency.value = notes[3]['B']; // E
 			}, 1600);
-		// }, 1000)
+			setTimeout(() => {
+				osc.frequency.value = notes[3]['A']; // Eflat
+			}, 2000);
+			setTimeout(() => {
+				osc.frequency.value = notes[3]['B']; // E
+			}, 2400);
+			setTimeout(() => {
+				osc.frequency.value = notes[4]['C']; // F
+			}, 2800);
+			setTimeout(() => {
+				osc.frequency.value = notes[4]['D']; // F
+			}, 3200);
+			setTimeout(() => {
+				osc.frequency.value = notes[4]['C']; // F
+			}, 3600);
+			setTimeout(() => {
+				osc.frequency.value = notes[3]['B']; // F
+			}, 4000);
+			setTimeout(() => {
+				osc.frequency.value = notes[3]['D#']; // F
+			}, 4400);
+		}, 5200)
+	}
+
+	function chromaA(osc, notes) {	
+		setTimeout(() => {
+			osc.frequency.value = notes[36];
+		}, 0);
+		setTimeout(() => {
+			osc.frequency.value = notes[38];
+		}, 400);
+		setTimeout(() => {
+			osc.frequency.value = notes[40];
+		}, 800);
+		setTimeout(() => {
+			osc.frequency.value = notes[42];
+		}, 1200);
+		setTimeout(() => {
+			osc.frequency.value = notes[44];
+		}, 1600);
+		setTimeout(() => {
+			osc.frequency.value = notes[46];
+		}, 2000);
+		setTimeout(() => {
+			osc.frequency.value = notes[48];
+		}, 2400);
+		setTimeout(() => {
+			osc.frequency.value = notes[50];
+		}, 2800);
+		setTimeout(() => {
+			osc.frequency.value = notes[52];
+		}, 3200);
+		setTimeout(() => {
+			osc.frequency.value = notes[54];
+		}, 3600);
+		setTimeout(() => {
+			osc.frequency.value = notes[56];
+		}, 4000);
+		setTimeout(() => {
+			osc.frequency.value = notes[58];
+		}, 4400);
+	}
+
+	function chromaB(osc, notes) {
+		setTimeout(() => {
+			osc.frequency.value = notes[40];
+		}, 0);
+		setTimeout(() => {
+			osc.frequency.value = notes[42];
+		}, 400);
+		setTimeout(() => {
+			osc.frequency.value = notes[44];
+		}, 800);
+		setTimeout(() => {
+			osc.frequency.value = notes[46];
+		}, 1200);
+		setTimeout(() => {
+			osc.frequency.value = notes[48];
+		}, 1600);
+		setTimeout(() => {
+			osc.frequency.value = notes[50];
+		}, 2000);
+		setTimeout(() => {
+			osc.frequency.value = notes[52];
+		}, 2400);
+		setTimeout(() => {
+			osc.frequency.value = notes[54];
+		}, 2800);
+		setTimeout(() => {
+			osc.frequency.value = notes[56];
+		}, 3200);
+		setTimeout(() => {
+			osc.frequency.value = notes[58];
+		}, 3600);
+		setTimeout(() => {
+			osc.frequency.value = notes[60];
+		}, 4000);
+		setTimeout(() => {
+			osc.frequency.value = notes[58];
+		}, 4400);
 	}
 
 		console.log(e.which);
@@ -475,6 +611,18 @@ window.addEventListener('keypress', (e) => {
 				// 	chroma.call(null, osc, linearNotes);
 				// });
 			// }, 500);
+		}
+
+		// 1 key
+		if (e.which === 49) {
+			sequencerA.call(null, arrOfOsc[0], notes);
+			sequencerB.call(null, arrOfOsc[1], notes);
+		}
+
+		// 2 key
+		if (e.which === 50) {
+			chromaA.call(null, arrOfOsc[2], linearNotes);
+			chromaB.call(null, arrOfOsc[3], linearNotes);
 		}
 
 
