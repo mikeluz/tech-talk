@@ -9,9 +9,9 @@ function getRandomColor() {
 
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-console.log('window', window);
-console.log('window.AudioContext', window.AudioContext);
-console.log("audioCtx", audioCtx);
+// console.log('window', window);
+// console.log('window.AudioContext', window.AudioContext);
+// console.log("audioCtx", audioCtx);
 
 //set up the different audio nodes we will use for the app
 var distortion = audioCtx.createWaveShaper();
@@ -161,13 +161,13 @@ function createLinearNoteTable() {
   noteFreq[24] = 261.625565300598634;
   noteFreq[25] = 277.182630976872096;
   noteFreq[26] = 293.664767917407560;
-  noteFreq[27] = 311.126983722080910;
+  noteFreq[27] = 311.126983722080910; // 2 ^
   noteFreq[28] = 329.627556912869929;
   noteFreq[29] = 349.228231433003884;
   noteFreq[30] = 369.994422711634398;
   noteFreq[31] = 391.995435981749294;
   noteFreq[32] = 415.304697579945138;
-  noteFreq[33] = 440.000000000000000;
+  noteFreq[33] = 440.000000000000000; // 2 ^ 
   noteFreq[34] = 466.163761518089916;
   noteFreq[35] = 493.883301256124111;
 
@@ -210,14 +210,13 @@ let four = document.getElementById("four");
 // create oscillators
 const arrayOfSynthTypes = ['sine', 'square', 'triangle', 'sawtooth', 'sine', 'square', 'triangle', 'sawtooth'];
 const arrOfOsc = [];
-let startingFreqValue = 261.625565300598634;
+const arrOfOscChords = [];
 
 for (let i = 0; i < 8; i++) {
 	let osc = audioCtx.createOscillator();
 	osc.type = arrayOfSynthTypes[Math.floor((Math.random() * 10) / 8)];
 	// osc.type = "square";
 	osc.frequency.value = Math.floor(Math.random() * 1000);
-	// startingFreqValue = ;
 	arrOfOsc.push(osc);
 }
 
@@ -229,18 +228,40 @@ arrOfOsc.forEach(osc => {
 	gainNode.connect(audioCtx.destination);
 });
 
-console.log("arrOfOsc", arrOfOsc);
+for (let i = 0; i < 8; i++) {
+	let osc = audioCtx.createOscillator();
+	osc.type = "square";
+	arrOfOscChords.push(osc);
+}
+
+// connect each oscillator
+arrOfOscChords.forEach(osc => {
+	osc.connect(distortion);
+	distortion.connect(biquadFilter);
+	biquadFilter.connect(gainNode);
+	gainNode.connect(audioCtx.destination);
+});
+
+// console.log("arrOfOsc", arrOfOsc);
 // arrOfOsc.addEffect(delay);
 
 // global volume and pitch values
 gainNode.gain.value = 0.08;
-let globalPitchInterval = 50; 
+let globalPitchInterval = Math.floor(Math.random() * 100) / 2; // 50
 
 // create keyboard events
 window.addEventListener('keypress', (e) => {
 
 	const notes = createNoteTable();
 	const linearNotes = createLinearNoteTable();
+
+	function assignChords(notes) {
+		arrOfOscChords.forEach((osc, index) => { // 36 - 47
+			osc.frequency.value = linearNotes[index+36];
+		})
+	}
+
+	assignChords(linearNotes);
 
 	function sequencer(osc, notes) {
 		setTimeout(() => {
@@ -282,85 +303,81 @@ window.addEventListener('keypress', (e) => {
 	}
 
 	function sequencerA(osc, notes) {
-		var go = setInterval(() => {
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['E']; // E
-			}, 0);
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['D#']; // Eflat
-			}, 400);
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['E']; // E
-			}, 800);
-			setTimeout(() => {
-				osc.frequency.value = notes[2]['A']; // A
-			}, 1200);
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['E']; // E
-			}, 1600);
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['D#']; // Eflat
-			}, 2000);
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['E']; // E
-			}, 2400);
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['F']; // F
-			}, 2800);
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['G']; // F
-			}, 3200);
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['F']; // F
-			}, 3600);
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['E']; // F
-			}, 4000);
-			setTimeout(() => {
-				osc.frequency.value = notes[2]['G#']; // F
-			}, 4400);
-		}, 5200)
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['E']; // E
+		}, 0);
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['D#']; // Eflat
+		}, 400);
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['E']; // E
+		}, 800);
+		setTimeout(() => {
+			osc.frequency.value = notes[2]['A']; // A
+		}, 1200);
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['E']; // E
+		}, 1600);
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['D#']; // Eflat
+		}, 2000);
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['E']; // E
+		}, 2400);
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['F']; // F
+		}, 2800);
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['G']; // F
+		}, 3200);
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['F']; // F
+		}, 3600);
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['E']; // F
+		}, 4000);
+		setTimeout(() => {
+			osc.frequency.value = notes[2]['G#']; // F
+		}, 4400);
 	}
 
 	function sequencerB(osc, notes) {
-		var go = setInterval(() => {
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['B']; // E
-			}, 0);
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['A']; // Eflat
-			}, 400);
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['B']; // E
-			}, 800);
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['E']; // A
-			}, 1200);
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['B']; // E
-			}, 1600);
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['A']; // Eflat
-			}, 2000);
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['B']; // E
-			}, 2400);
-			setTimeout(() => {
-				osc.frequency.value = notes[4]['C']; // F
-			}, 2800);
-			setTimeout(() => {
-				osc.frequency.value = notes[4]['D']; // F
-			}, 3200);
-			setTimeout(() => {
-				osc.frequency.value = notes[4]['C']; // F
-			}, 3600);
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['B']; // F
-			}, 4000);
-			setTimeout(() => {
-				osc.frequency.value = notes[3]['D#']; // F
-			}, 4400);
-		}, 5200)
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['B']; // E
+		}, 0);
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['A']; // Eflat
+		}, 400);
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['B']; // E
+		}, 800);
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['E']; // A
+		}, 1200);
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['B']; // E
+		}, 1600);
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['A']; // Eflat
+		}, 2000);
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['B']; // E
+		}, 2400);
+		setTimeout(() => {
+			osc.frequency.value = notes[4]['C']; // F
+		}, 2800);
+		setTimeout(() => {
+			osc.frequency.value = notes[4]['D']; // F
+		}, 3200);
+		setTimeout(() => {
+			osc.frequency.value = notes[4]['C']; // F
+		}, 3600);
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['B']; // F
+		}, 4000);
+		setTimeout(() => {
+			osc.frequency.value = notes[3]['D#']; // F
+		}, 4400);
 	}
 
 	function chromaA(osc, notes) {	
@@ -445,6 +462,10 @@ window.addEventListener('keypress', (e) => {
 
 		// 'a' on keyboard -- osc1
 		if (e.which === 97) {
+			arrOfOscChords[0].start();
+			one.style.backgroundColor = getRandomColor();
+		}
+		if (e.which === 65) {
 			arrOfOsc[0].start();
 			one.style.backgroundColor = getRandomColor();
 		}
@@ -461,6 +482,11 @@ window.addEventListener('keypress', (e) => {
 
 		// 's' on keyboard
 		if (e.which === 115) {
+			arrOfOscChords[4].start();
+			two.style.backgroundColor = getRandomColor();
+		}
+
+		if (e.which === 83) {
 			arrOfOsc[1].start();
 			two.style.backgroundColor = getRandomColor();
 		}
@@ -477,6 +503,11 @@ window.addEventListener('keypress', (e) => {
 
 		// 'd' on keyboard
 		if (e.which === 100) {
+			arrOfOscChords[7].start();
+			three.style.backgroundColor = getRandomColor();
+		}
+
+		if (e.which === 68) {
 			arrOfOsc[2].start();
 			three.style.backgroundColor = getRandomColor();
 		}
@@ -493,6 +524,11 @@ window.addEventListener('keypress', (e) => {
 
 		// 'f' on keyboard
 		if (e.which === 102) {
+			arrOfOscChords[6].start();
+			four.style.backgroundColor = getRandomColor();
+		}
+
+		if (e.which === 70) {
 			arrOfOsc[3].start();
 			four.style.backgroundColor = getRandomColor();
 		}
@@ -512,6 +548,10 @@ window.addEventListener('keypress', (e) => {
 			arrOfOsc[4].start();
 			five.style.backgroundColor = getRandomColor();
 		}
+		if (e.which === 74) {
+			arrOfOscChords[3].start();
+			one.style.backgroundColor = getRandomColor();
+		}
 
 			if (e.which === 117) {
 				five.style.backgroundColor = getRandomColor();
@@ -527,6 +567,10 @@ window.addEventListener('keypress', (e) => {
 		if (e.which === 107) {
 			arrOfOsc[5].start();
 			six.style.backgroundColor = getRandomColor();
+		}
+		if (e.which === 75) {
+			arrOfOscChords[5].start();
+			one.style.backgroundColor = getRandomColor();
 		}
 
 			if (e.which === 105) {
@@ -571,10 +615,12 @@ window.addEventListener('keypress', (e) => {
 				arrOfOsc[7].frequency.value -= 10;
 			}
 
+		// G key to decrease pitch interval for bracket keys
 		if (e.which === 103) {
 			globalPitchInterval -= 50;
 		}
 
+		// H key to increase pitch interval for bracket keys
 		if (e.which === 104) {
 			globalPitchInterval += 50;
 		}
@@ -584,12 +630,17 @@ window.addEventListener('keypress', (e) => {
 			arrOfOsc.forEach(osc => {
 				osc.frequency.value -= globalPitchInterval;
 			});
+			arrOfOscChords.forEach(osc => {
+				osc.frequency.value -= globalPitchInterval;
+			});
 		}
 
-		var intervalCounter = 0;
 		// right bracket to increase pitch
 		if (e.which === 93) {
 			arrOfOsc.forEach(osc => {
+				osc.frequency.value += globalPitchInterval;
+			});
+			arrOfOscChords.forEach(osc => {
 				osc.frequency.value += globalPitchInterval;
 			});
 		}
@@ -600,29 +651,46 @@ window.addEventListener('keypress', (e) => {
 			arrOfOsc.forEach(osc => {
 				if (osc.start) osc.stop();
 			});
+			arrOfOscChords.forEach(osc => {
+				if (osc.start) osc.stop();
+			});
 		}
 
+		// enter key
 		if (e.which === 13) {
-			// setInterval(() => {
-				arrOfOsc.forEach((osc) => {
-					sequencer.call(null, osc, notes);
-				});
-				// arrOfOsc.forEach((osc) => {
-				// 	chroma.call(null, osc, linearNotes);
-				// });
-			// }, 500);
+			arrOfOsc.forEach((osc) => {
+				sequencer.call(null, osc, notes);
+			});
 		}
 
 		// 1 key
 		if (e.which === 49) {
 			sequencerA.call(null, arrOfOsc[0], notes);
 			sequencerB.call(null, arrOfOsc[1], notes);
+			var go = setInterval(() => {
+				sequencerA.call(null, arrOfOsc[0], notes);
+				sequencerB.call(null, arrOfOsc[1], notes);
+			}, 5400)
 		}
 
 		// 2 key
 		if (e.which === 50) {
 			chromaA.call(null, arrOfOsc[2], linearNotes);
 			chromaB.call(null, arrOfOsc[3], linearNotes);
+			var go = setInterval(() => {
+				chromaA.call(null, arrOfOsc[2], linearNotes);
+				chromaB.call(null, arrOfOsc[3], linearNotes);
+			}, 5200)
+		}
+
+		// 3 key
+		if (e.which === 51) {
+			chromaA.call(null, arrOfOsc[2], linearNotes);
+			sequencerB.call(null, arrOfOsc[1], notes);
+			var go = setInterval(() => {
+				chromaA.call(null, arrOfOsc[2], linearNotes);
+				sequencerB.call(null, arrOfOsc[1], notes);
+			}, 5200)
 		}
 
 
